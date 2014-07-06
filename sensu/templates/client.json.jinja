@@ -1,0 +1,12 @@
+{% set sensu_group = pillar.get(['monitoring']['sensu_group']) -%}
+{
+  "client": {
+    "name": "{{ grains['fqdn'] }}",
+    "address": "{{ salt['network.ip_addrs']('eth0')[0] }}",
+    {% if sensu_group -%}
+    "subscriptions": [ "all", "{{ sensu_group }}" ]
+    {% else -%}
+    "subscriptions": [ "all" ]
+    {% endif -%}
+  }
+}

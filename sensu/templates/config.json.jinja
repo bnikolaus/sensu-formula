@@ -1,0 +1,18 @@
+{% set rabbit_server   = salt['grains.get']('sensu_server', 'localhost') -%}
+{% set rabbit_port     = salt['pillar.get']('sensu:client:rabbit_port', '5671') -%}
+{% set rabbit_user     = salt['pillar.get']('sensu:client:rabbit_user', 'sensu') -%}
+{% set rabbit_password = salt['pillar.get']('sensu:client:rabbit_password', 'sensu') -%}
+{% set rabbit_vhost    = salt['pillar.get']('sensu:client:rabbit_vhost', '/sensu') -%}
+{
+  "rabbitmq": {
+     "ssl": {
+           "cert_chain_file": "/etc/sensu/ssl/cert.pem",
+           "private_key_file": "/etc/sensu/ssl/key.pem"
+         },
+    "host": "{{ rabbit_server }}",
+    "port": {{ rabbit_port }},
+    "user": "{{ rabbit_user }}",
+    "password": "{{ rabbit_password }}",
+    "vhost": "{{ rabbit_vhost }}"
+  }
+}

@@ -1,0 +1,15 @@
+{% set ssl_listener = salt['pillar.get']('sensu:rabbitmq:ssl_listener', 5671) -%}
+{% set ssl_dir = salt['pillar.get']('sensu:rabbitmq:ssl_dir', '/etc/rabbitmq/ssl') -%}
+{% set ca_cert = salt['pillar.get']('sensu:rabbitmq:ca_cert', 'cacert.pem') -%}
+{% set srv_cert = salt['pillar.get']('sensu:rabbitmq:srv_cert', 'cert.pem') -%}
+{% set srv_key = salt['pillar.get']('sensu:rabbitmq:srv_key', 'key.pem') -%}
+[
+    {rabbit, [
+    {ssl_listeners, [{{ ssl_listener }}]},
+    {ssl_options, [{cacertfile,"{{ ssl_dir }}/{{ ca_cert }}"},
+                   {certfile,"{{ ssl_dir }}/{{ srv_cert }}"},
+                   {keyfile,"{{ ssl_dir }}/{{ srv_key }}"},
+                   {verify,verify_peer},
+                   {fail_if_no_peer_cert,true}]}
+  ]}
+].
