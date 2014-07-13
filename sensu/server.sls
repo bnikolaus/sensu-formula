@@ -19,15 +19,6 @@ rabbitmq_config:
     - template: jinja
     - source: salt://sensu/templates/rabbitmq.config.jinja
 
-sensu_ssl_certs:
-  file:
-    - name: /etc/sensu/ssl
-    - recurse
-    - user: root
-    - group: root
-    - source: salt://sensu/files/ssl
-    - clean: True
-
 sensu_srv_main_config:
   file:
     - name: /etc/sensu/config.json
@@ -59,7 +50,6 @@ sensu-client:
       - pkg: sensu
       - file: sensu_srv_main_config
       - file: sensu_srv_client_config
-      - file: sensu_ssl_certs
 
 sensu-server:
   service:

@@ -33,5 +33,4 @@ sensu_client_service:
       - pkg: sensu
       - file: sensu_main_config
       - file: sensu_client_config
-      - file: sensu_ssl_certs_to_rabbitmq
 
