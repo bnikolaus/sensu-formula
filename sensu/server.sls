@@ -9,7 +9,7 @@ pyOpenSSL:
   pkg: 
     - installed
 
-rabbitmq-config:
+rabbitmq_config:
   file:
     - name: /etc/rabbitmq/rabbitmq.config
     - managed

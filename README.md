@@ -8,16 +8,17 @@ Salt Formula to install Sensu server and clients
     See the full `Salt Formulas installation and usage instructions
     <http://docs.saltstack.com/topics/conventions/formulas.html>`_.
 
+Notes
+====
+
+* ssl to rabbitmq has been removed for now to simplify the setup
+
 Todo
 ====
 
 * create map.jinja and update sls to conform with best practice from `Salt Formulas installation and usage instructionas <http://docs.saltstack.com/en/latest/topics/development/conventions/formulas.html>`
-* create ca/cert/keys for rabbitmq server
-* create cert/keys signed by rabbitmq ca for sensu clients
-  * remove static ssl cert/keys in files/
+  * update pillar.example
 * some templates are still static
-* update pillar.example
-* update sample pillar data config for clients to use
 
 Dependencies
 ============
@@ -48,7 +49,7 @@ Configures and starts sensu server, api, dashboard and client onto a host, will 
 ``sensu.client``
 ----------------
 
-Installs sensu client and setups config to find its rabbitmq server and basic client config. Default will subscribe to the list "all". Pillar data can be used to add 1 custom list to subscribe to, examples will be provided.
+Installs sensu client and setups config to find its rabbitmq server (sensu_server) and basic client config. Default will subscribe to the list "all". Pillar data can be used to add 1 custom list to subscribe to, examples will be provided.
 
 
 ``Example configuration``
@@ -65,22 +66,11 @@ base:
     - sensu.server
 ```
 
-pillar/sensu/server.sls:
-```yaml
-sensu:
-  rabbitmq:
-    ssl_listener: 5671
-    ssl_dir: '/etc/rabbitmq/ssl'
-    ca_cert: 'cacert.pem'
-    srv_cert: 'cert.pem'
-    srv_key: 'key.pem'
-```
-
 pillar/sensu/client.sls:
 ```yaml
 sensu:
   client:
-    rabbit_port: 5671
+    rabbit_port: 5672
     rabbit_user: 'sensu'
     rabbit_password: 'sensu'
     rabbit_vhost: '/sensu'

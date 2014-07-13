@@ -1,15 +1,6 @@
 include:
   - sensu
 
-sensu_ssl_certs_to_rabbitmq:
-  file:
-    - name: /etc/sensu/ssl
-    - recurse
-    - user: root
-    - group: root
-    - source: salt://sensu/files/ssl
-    - clean: True
-
 sensu_main_config:
   file:
     - name: /etc/sensu/config.json

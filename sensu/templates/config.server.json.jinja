@@ -1,11 +1,7 @@
 {
   "rabbitmq": {
-     "ssl": {
-           "cert_chain_file": "/etc/sensu/ssl/cert.pem",
-           "private_key_file": "/etc/sensu/ssl/key.pem"
-         },
     "host": "{{ salt['network.ip_addrs']('eth0')[0] }}",
-    "port": 5671,
+    "port": 5672,
     "user": "sensu",
     "password": "sensu",
     "vhost": "/sensu"
